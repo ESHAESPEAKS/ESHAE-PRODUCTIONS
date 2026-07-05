@@ -431,7 +431,7 @@
       position:relative;
       cursor:pointer;
     }
-    .mag-shot img{width:100%;height:320px;object-fit:cover}
+    .mag-shot img{width:100%;height:360px;object-fit:contain;object-position:center top;background:rgba(0,0,0,.28)}
     .mag-shot .cap{
       padding:10px 12px;
       color:rgba(244,241,255,.82);
@@ -495,6 +495,65 @@
       min-height:170px;
     }
 
+    .story-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .story-card{
+      border-radius:18px;
+      border:1px solid rgba(216,181,106,.18);
+      background:
+        radial-gradient(260px 120px at 15% 0%, rgba(255,120,201,.12), transparent 60%),
+        rgba(18,14,28,.42);
+      padding:16px;
+      min-height:190px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .story-card h3{
+      margin:0;
+      font-family:var(--serif);
+      font-size:20px;
+      color:rgba(240,208,138,.97);
+      letter-spacing:.03em;
+    }
+
+    .story-card p{
+      margin:0;
+      color:rgba(244,241,255,.74);
+      line-height:1.58;
+      font-size:13px;
+    }
+
+    .story-card .btn{
+      margin-top:auto;
+      width:max-content;
+    }
+
+    .story-full{
+      display:none;
+      margin-top:14px;
+      border-radius:18px;
+      border:1px solid rgba(216,181,106,.18);
+      background:rgba(7,6,10,.36);
+      padding:16px;
+    }
+
+    .story-full:target{
+      display:block;
+    }
+
+    .story-full p{
+      color:rgba(244,241,255,.78);
+      line-height:1.68;
+      font-size:14px;
+    }
+
     .policy-block{
       border:1px solid rgba(216,181,106,.17);
       background:rgba(18,14,28,.35);
@@ -532,7 +591,7 @@
 
     @media (max-width:980px){
       .grid,.two{grid-template-columns:1fr}
-      .three,.four{grid-template-columns:repeat(2, 1fr)}
+      .three,.four,.story-grid{grid-template-columns:repeat(2, 1fr)}
       .hero-title{font-size:38px}
       .mini-icons{margin-left:0}
       .topbar-inner{align-items:flex-start;flex-direction:column}
@@ -546,8 +605,8 @@
       .hero-bg{min-height:390px;padding:18px}
       .hero-title{font-size:32px}
       .hero-content{padding:16px}
-      .mag-grid,.three,.four{grid-template-columns:1fr}
-      .mag-shot img{height:360px}
+      .mag-grid,.three,.four,.story-grid{grid-template-columns:1fr}
+      .mag-shot img{height:380px}
       .btn{width:100%;white-space:normal;text-align:center}
       .mini-icons .icon-btn{width:46px}
       .banner{padding:10px}
@@ -591,6 +650,7 @@
 
       <nav class="nav" aria-label="Primary navigation">
         <a href="#grid-room">Grid Room</a>
+        <a href="#latest-stories">Stories</a>
         <a href="#grid-alert">Grid Alert</a>
         <a href="#featured-grid">Featured Grid</a>
         <a href="#services">Services</a>
@@ -645,7 +705,7 @@
             </p>
             <div class="four">
               <a class="hub-card" href="#grid-alert"><strong>Grid Alert</strong><span>Watch featured videos, media coverage, interviews, and event reports.</span></a>
-              <a class="hub-card" href="#grid-room"><strong>The Grid Room</strong><span>Read full stories, features, spotlights, and official E'Shae Speaks coverage.</span></a>
+              <a class="hub-card" href="#latest-stories"><strong>Latest Stories</strong><span>Read full stories, features, spotlights, and official E'Shae Speaks coverage.</span></a>
               <a class="hub-card" href="#voice-sound"><strong>Voice & Sound</strong><span>Explore voice work, promotional voice samples, music direction, and Spotify.</span></a>
               <a class="hub-card" href="#booking"><strong>Book E'Shae</strong><span>Request hosting, media writing, event coverage, security, promotions, and brand services.</span></a>
             </div>
@@ -713,7 +773,7 @@
               event coverage, interviews, sponsor features, reflections, and editorial releases will live on the website.
             </p>
             <div class="three">
-              <a class="hub-card" href="#grid-alert"><strong>Grid Alert Coverage</strong><span>Watch the latest video coverage and direct viewers to full media features.</span></a>
+              <a class="hub-card" href="#latest-stories"><strong>Latest Stories</strong><span>Read full website features, Grid Alert recaps, event coverage, interviews, and editorial releases.</span></a>
               <a class="hub-card" href="#featured-grid"><strong>Featured on the Grid</strong><span>Explore paid promotional placement opportunities for flyers, venues, brands, DJs, and sponsors.</span></a>
               <a class="hub-card booking-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdXeLmsj-8Uj-klSqO56Zrerjdv_syziLVuhteCnzCxabQszw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer"><strong>Submit a Feature Request</strong><span>Use the official booking form to request event coverage, story placement, promotion, or a media feature.</span></a>
             </div>
@@ -723,6 +783,58 @@
                 Previews may be posted on social media. The complete story, official recap, or feature is published here so the website remains the central archive.
               </p>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="latest-stories">
+      <div class="wrap">
+        <div class="card">
+          <div class="card-pad">
+            <p class="kicker">Full Stories Live Here</p>
+            <h2 class="h2">Latest Stories & Features</h2>
+            <p class="p">
+              This is the official website home for published E'Shae Speaks stories, Grid Alert recaps, sponsor features, event coverage, interviews, and editorial releases.
+              Social media previews can point readers here for the full version.
+            </p>
+
+            <div class="story-grid" id="storyGrid">
+              <!--
+                TO ADD A NEW STORY:
+                1. Copy one story-card block from below.
+                2. Change the title, date/category, preview, and link number.
+                3. Copy the matching story-full block below and paste the full article inside.
+                4. Keep every story id unique, such as story-1, story-2, story-3.
+
+                PASTE NEW STORY CARDS BELOW THIS LINE.
+              -->
+            </div>
+
+            <!--
+              PASTE FULL STORY SECTIONS BELOW THIS LINE.
+
+              COPY-PASTE STORY CARD TEMPLATE:
+
+              <article class="story-card">
+                <p class="kicker">Category | Date</p>
+                <h3>Story Title</h3>
+                <p>Short preview of the story goes here.</p>
+                <a class="btn btn-ghost" href="#story-1">Read Full Story</a>
+              </article>
+
+              COPY-PASTE FULL STORY TEMPLATE:
+
+              <article class="story-full" id="story-1">
+                <p class="kicker">Category | Date</p>
+                <h2 class="h2">Story Title</h2>
+                <p>Paste the full story here.</p>
+                <div class="cta-row">
+                  <a class="btn btn-ghost" href="#latest-stories">Back to Latest Stories</a>
+                  <a class="btn btn-primary booking-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdXeLmsj-8Uj-klSqO56Zrerjdv_syziLVuhteCnzCxabQszw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">Book E'Shae</a>
+                </div>
+              </article>
+            -->
           </div>
         </div>
       </div>
@@ -946,28 +1058,19 @@
                 </ul>
               </div>
               <div>
-                <h3 class="h3">Team Access Perk</h3>
+                <h3 class="h3">Brand Support Includes</h3>
                 <ul class="list">
-                  <li>Team members may receive one monthly support favor outside of regular brand pushing, such as hosting support, promo assistance, or a shoutout video.</li>
-                  <li>DJs under management can request E'Shae Speaks as a main host when scheduling allows.</li>
+                  <li>Visibility planning, promotional copy, rollout structure, media direction, and event presentation support.</li>
+                  <li>DJ, host, media, and creative support may be coordinated by project when scheduling and scope allow.</li>
                 </ul>
               </div>
             </div>
             <div class="divider"></div>
-            <h3 class="h3">Current Roster and Creative Team</h3>
-            <div class="two">
-              <ul class="list">
-                <li>DJ Bad News</li>
-                <li>DJ Eva</li>
-                <li>DJ Sir Kilmaxxx</li>
-                <li>DJ KT Swish</li>
-              </ul>
-              <ul class="list">
-                <li><strong>Poca</strong> - Interior Design</li>
-                <li><strong>Montavous</strong> - Monta Productions, Media and Video</li>
-                <li><strong>DJ Black Magic</strong> - Media Team</li>
-              </ul>
-            </div>
+            <h3 class="h3">Creative Collaboration</h3>
+            <p class="p">
+              Roster, media, and creative collaborations are confirmed directly through E'Shae Productions per project.
+              Public announcements are shared through official E'Shae Productions channels when appropriate.
+            </p>
             <div class="cta-row">
               <a class="btn btn-primary booking-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdXeLmsj-8Uj-klSqO56Zrerjdv_syziLVuhteCnzCxabQszw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">Request Brand Support</a>
             </div>
@@ -997,13 +1100,12 @@
                 </ul>
               </div>
               <div>
-                <h3 class="h3">Internal Team Pay Structure</h3>
+                <h3 class="h3">Security Booking Notes</h3>
                 <ul class="list">
-                  <li><strong>45 minutes:</strong> L$ 700 for the first 45 minutes.</li>
-                  <li><strong>2+ hours:</strong> structured or special events can increase up to L$ 1,000 depending on scope.</li>
-                  <li><strong>Volunteer rotation:</strong> if a member works a paid event one week, the next event week may be volunteer to keep the program sustainable.</li>
-                  <li><strong>Tips:</strong> event tips are split among active guards that night when applicable.</li>
-                  <li><strong>Team standard:</strong> team members must wear their custom tag at E'Shae events.</li>
+                  <li>Security support is quoted based on event length, location, expected crowd flow, and requested coverage.</li>
+                  <li>Structured or specialty events may require additional staffing, planning time, or media coordination.</li>
+                  <li>Security staff are expected to maintain professional conduct, respectful communication, and brand alignment while on duty.</li>
+                  <li>All final rates, assignments, and expectations are confirmed during the booking process.</li>
                 </ul>
               </div>
             </div>
